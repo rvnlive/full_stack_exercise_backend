@@ -14,6 +14,9 @@ database.authenticate()
   .then(() => {
     console.log('Database connection Live!')
   })
+  .catch(error => {
+    console.log(error)
+  })
 
 app.use(helmet())
 app.use(cors())
