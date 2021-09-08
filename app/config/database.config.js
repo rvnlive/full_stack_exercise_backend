@@ -1,12 +1,12 @@
 // Promise-based Object-relational mapping
 const { Sequelize } = require('sequelize')
 const sequelize = new Sequelize(
-  // process.env.DATABASE_URL,
-  process.env.DATABASE,
-  process.env.USER,
-  process.env.PASSWORD,
+  process.env.DATABASE_URL,
+  // process.env.DATABASE,
+  // process.env.USER,
+  // process.env.PASSWORD,
   {
-    host: process.env.HOST,
+    // host: process.env.HOST,
     dialectOptions: {
       ssl: {
         require: true,
@@ -14,7 +14,7 @@ const sequelize = new Sequelize(
       }
     },
     port: process.env.PORT,
-    protocol: 'postgres',
+    // protocol: 'postgres',
     dialect: 'postgres',
     pool: {
       max: 5,
