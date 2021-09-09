@@ -8,7 +8,19 @@ const cors = require('cors')
 const userRoutes = require('./app/routes/userRoutes')
 const favouriteRoutes = require('./app/routes/favouriteRoutes')
 
+const allowedOrigin = ['http://localhost:8081', 'http://192.168.0.121:8081']
 app.use(cors({
+  origin: function (origin, callback) {
+    // allow requests with no origin
+    // (like mobile apps or curl requests)
+    if (!origin) return callback(null, true)
+    if (allowedOrigin.indexOf(origin) === -1) {
+      const msg = 'The CORS policy for this site does not ' +
+                  'allow access from the specified Origin.'
+      return callback(new Error(msg), false)
+    }
+    return callback(null, true)
+  },
   exposedHeaders: ['Origin, X-Requested-With, Content, Content-Length, Accept, Content-Type, Authorization'],
   credentials: true
 }))
