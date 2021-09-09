@@ -8,6 +8,10 @@ const cors = require('cors')
 const userRoutes = require('./app/routes/userRoutes')
 const favouriteRoutes = require('./app/routes/favouriteRoutes')
 
+app.use(cors({
+  exposedHeaders: ['Origin, X-Requested-With, Content, Content-Length, Accept, Content-Type, Authorization'],
+  credentials: true
+}))
 /** Postgres + Sequelize Connection */
 const database = require('./app/config/database.config')
 database.authenticate()
@@ -18,7 +22,6 @@ database.authenticate()
     console.log(error)
   })
 
-app.use(cors())
 app.use(helmet())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
