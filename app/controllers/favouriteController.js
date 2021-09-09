@@ -14,9 +14,9 @@ const Movies = models.movies
 /// /////////////////////////////////////////// //
 
 exports.addToFavourites = (req, res) => {
-  const userID = req.body.userid
-  const bookID = req.body.bookid
-  const movieID = req.body.movieid
+  const userID = req.body.activeUserID
+  const bookID = req.body.bookID
+  const movieID = req.body.movieID
 
   if (userID && bookID) {
     const addBook = {
