@@ -28,12 +28,12 @@ exports.addToFavourites = (req, res) => {
     Favourites
       .create(addBook, {
         include: [{
-          model: Books, as: 'book'
+          model: Books, as: 'books'
         }]
       })
       .then((result) => {
         const favouriteBook = result
-        console.log(favouriteBook)
+        // console.log(favouriteBook)
         if (favouriteBook) {
           return res.json({ favouriteBook })
         } else {
@@ -53,12 +53,12 @@ exports.addToFavourites = (req, res) => {
     Favourites
       .create(addMovie, {
         include: [{
-          model: Movies, as: 'movie'
+          model: Movies, as: 'movies'
         }]
       })
       .then((result) => {
         const favouriteMovie = result
-        console.log(favouriteMovie)
+        // console.log(favouriteMovie)
         if (favouriteMovie) {
           return res.json({ favouriteMovie })
         } else {
@@ -72,26 +72,41 @@ exports.addToFavourites = (req, res) => {
 }
 
 exports.getAllFavourites = (req, res) => {
+  const userID = req.body.activeUserID
   Favourites.findAll({
+    where: {
+      user_id: userID
+    },
+    raw: true,
+    attributes: {
+      exclude: ['user_id', 'created_at', 'updated_at']
+    },
     include: [
-      {
-        model: Users,
-        as: 'user',
-        attributes: {
-          exclude: ['user_password', 'created_at', 'updated_at']
-        },
-        order: [['created_at', 'ASC']]
-
-      },
+      // {
+      //   model: Users,
+      //   as: 'user',
+      //   attributes: {
+      //     exclude: ['user_id', 'user_name', 'password', 'created_at', 'updated_at']
+      //   },
+      //   order: [['created_at', 'ASC']]
+      // },
       {
         model: Books,
-        as: 'book',
-        order: [['created_at', 'ASC']]
+        as: 'books',
+        required: false,
+        order: [['created_at', 'ASC']],
+        attributes: {
+          exclude: ['created_at', 'updated_at']
+        }
       },
       {
         model: Movies,
-        as: 'movie',
-        order: [['created_at', 'ASC']]
+        as: 'movies',
+        required: false,
+        order: [['created_at', 'ASC']],
+        attributes: {
+          exclude: ['created_at', 'updated_at']
+        }
       }]
   })
     .then(favourites => {
@@ -99,6 +114,7 @@ exports.getAllFavourites = (req, res) => {
         errorMessage.error = 'Add something to favourites'
         return res.status(status.bad).send(errorMessage)
       } else {
+        // console.log(favourites)
         return res.json(favourites)
       }
     })
@@ -106,8 +122,8 @@ exports.getAllFavourites = (req, res) => {
 }
 
 exports.removeFromFavourites = (req, res) => {
-  const favouriteID = req.body.favouriteid
-  const userID = req.body.userid
+  const favouriteID = req.body.favouriteID
+  const userID = req.body.activeUserID
   Favourites.destroy({
     where: { user_id: userID, favourite_id: favouriteID },
     include: [

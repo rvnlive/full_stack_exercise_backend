@@ -32,10 +32,10 @@ const empty = (input) => {
   }
 }
 
-const generateUserToken = (userid, username) => {
+const generateUserToken = (userID, userName) => {
   const token = jwt.sign({
-    userid: userid,
-    username: username
+    user_id: userID,
+    user_name: userName
   },
   process.env.SECRET, { expiresIn: '3d' })
   return token

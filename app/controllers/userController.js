@@ -75,11 +75,11 @@ exports.logInUser = (req, res) => {
         errorMessage.error = 'The password provided is incorrect'
         return res.status(status.bad).send(errorMessage)
       }
-      const token = generateUserToken(result.user_name, result.user_id)
+      const token = generateUserToken(result.user_id, result.user_name)
       delete result.user_password
       successMessage.data = result
       successMessage.data.token = token
-      return res.json({ userid: result.user_id, userName: result.user_name, token: token })
+      return res.json({ user_id: result.user_id, user_name: result.user_name, token: token })
     })
     .catch(error => console.log('Operation was not successful ' + error))
 }

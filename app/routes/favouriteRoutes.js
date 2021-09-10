@@ -4,8 +4,8 @@ const auth = require('../helpers/authorization')
 
 const favouriteController = require('../controllers/favouriteController')
 
-router.get('/', auth, favouriteController.getAllFavourites)
-router.post('/', auth, favouriteController.addToFavourites)
-router.delete('/:id', auth, favouriteController.removeFromFavourites)
+router.post('/', auth, favouriteController.getAllFavourites)
+router.post('/add', auth, favouriteController.addToFavourites)
+router.delete('/remove', auth, favouriteController.removeFromFavourites)
 
 module.exports = router
