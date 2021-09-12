@@ -8,7 +8,7 @@ const cors = require('cors')
 const userRoutes = require('./app/routes/userRoutes')
 const favouriteRoutes = require('./app/routes/favouriteRoutes')
 
-const allowedOrigins = 'https://synthetix-exercise.herokuapp.com/'
+const allowedOrigins = ['https://synthetix-exercise.herokuapp.com/', 'https://boiling-savannah-16664.herokuapp.com/api/favourites/movies', 'https://boiling-savannah-16664.herokuapp.com/api/favourites/books']
 app.use(cors({
   origin: function (origin, callback) {
     // allow requests with no origin
