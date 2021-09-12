@@ -9,7 +9,8 @@ const userRoutes = require('./app/routes/userRoutes')
 const favouriteRoutes = require('./app/routes/favouriteRoutes')
 
 app.use(cors({
-  origin: '*'
+  origin: '*',
+  methods: ['GET', 'POST', 'DELETE', 'UPDATE', 'PUT', 'PATCH']
 }))
 /** Postgres + Sequelize Connection */
 const database = require('./app/config/database.config')
