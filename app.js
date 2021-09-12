@@ -8,7 +8,9 @@ const cors = require('cors')
 const userRoutes = require('./app/routes/userRoutes')
 const favouriteRoutes = require('./app/routes/favouriteRoutes')
 
-app.use(cors())
+app.use(cors({
+  origin: 'https://synthetix-exercise.herokuapp.com/'
+}))
 /** Postgres + Sequelize Connection */
 const database = require('./app/config/database.config')
 database.authenticate()
